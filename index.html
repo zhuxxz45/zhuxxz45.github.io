@@ -1,11 +1,272 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <title>我的GitHub网站</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sb3_to_exe · zhuxxz45</title>
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* ===== 主卡片 ===== */
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ===== 头像/图标 ===== */
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0883e, #e36209);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 auto 20px;
+            user-select: none;
+            box-shadow: 0 4px 16px rgba(227, 98, 9, 0.3);
+        }
+
+        /* ===== 标题 & 文字 ===== */
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f0f6fc;
+            margin-bottom: 4px;
+        }
+
+        h1 .highlight {
+            color: #f0883e;
+        }
+
+        .username {
+            color: #58a6ff;
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .bio {
+            font-size: 15px;
+            color: #8b949e;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .bio a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        .bio a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== 分隔线 ===== */
+        .divider {
+            border: none;
+            border-top: 1px solid #30363d;
+            margin: 24px 0;
+        }
+
+        /* ===== 下载区域 ===== */
+        .download-section {
+            background: #0d1117;
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #30363d;
+            margin-bottom: 8px;
+        }
+
+        .download-section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 6px;
+        }
+
+        .download-section .sub {
+            font-size: 13px;
+            color: #8b949e;
+            margin-bottom: 16px;
+        }
+
+        .download-section .version-badge {
+            display: inline-block;
+            background: #21262d;
+            color: #f0883e;
+            font-size: 12px;
+            padding: 2px 14px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+            margin-bottom: 16px;
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        /* ===== 下载按钮 ===== */
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #238636;
+            color: #ffffff;
+            border: none;
+            padding: 14px 36px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 8px rgba(35, 134, 54, 0.3);
+        }
+
+        .btn-download:hover {
+            background: #2ea043;
+            transform: scale(1.02);
+        }
+
+        .btn-download:active {
+            transform: scale(0.97);
+        }
+
+        .btn-download svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ===== 文件信息 ===== */
+        .file-info {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #484f58;
+            font-family: monospace;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== 功能特性标签 ===== */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 16px;
+            margin: 12px 0 4px;
+        }
+
+        .features span {
+            font-size: 13px;
+            color: #8b949e;
+            background: #21262d;
+            padding: 2px 12px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 500px) {
+            .card {
+                padding: 32px 20px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .btn-download {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 20px;
+            }
+            .download-section {
+                padding: 16px 16px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>🎉 你好，世界！</h1>
-    <p>我是 zhuxxz45，这是我的第一个 GitHub Pages 网站！</p>
+
+    <div class="card">
+
+        <!-- 头像：sb3 风格图标 -->
+        <div class="avatar">▶</div>
+
+        <!-- 标题 -->
+        <h1><span class="highlight">sb3</span>_to_<span class="highlight">exe</span></h1>
+        <span class="username">@zhuxxz45 · 作者</span>
+
+        <p class="bio">
+            🚀 专注 <strong>sb3_to_exe</strong> 开发 · 将 Scratch 项目一键打包为 Windows 程序<br />
+            轻量 · 快速 · 开箱即用
+        </p>
+
+        <!-- 功能标签 -->
+        <div class="features">
+            <span>🎯 .sb3 → .exe</span>
+            <span>⚡ 无需安装</span>
+            <span>🖥️ Windows 10/11</span>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ====== 下载区域 ====== -->
+        <div class="download-section">
+            <h2>📦 最新版本</h2>
+            <p class="sub">将 Scratch 项目的 .sb3 文件打包成独立的 Windows 可执行程序</p>
+
+            <div class="version-badge">v0.0.0.11</div>
+
+            <!-- ★★★ 下载按钮 ★★★ -->
+            <a href="sb3_to_exe0.0.0.11.exe" class="btn-download" download>
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <路径 d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                    <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                    <path d="M8 17h8v1.5H8V17z"/>
+                </svg>
+                下载 sb3_to_exe0.0.0.11.exe
+            </a>
+
+            <div class="file-info">
+                📦 约 15 MB · 适用于 Windows 10 / 11
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ====== 底部已清空，不再显示任何链接 ====== -->
+
+    </div>
+
 </body>
 </html>
