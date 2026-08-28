@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sb3_to_exe · zhuxxz45</title>
+    <title></title>
     <style>
         /* ===== 全局重置 & 字体 ===== */
         * {
@@ -29,7 +29,7 @@
             border: 1px solid #30363d;
             border-radius: 24px;
             padding: 48px 40px;
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
             text-align: center;
@@ -188,6 +188,93 @@
             border: 1px solid #30363d;
         }
 
+        /* ===== 翻页导航 ===== */
+        .page-nav {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .page-nav button {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 10px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .page-nav button:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+        }
+
+        .page-nav button.active {
+            background: #238636;
+            border-color: #238636;
+            color: #fff;
+        }
+
+        /* ===== 页面容器 ===== */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ===== 贪吃蛇游戏 ===== */
+        #gameCanvas {
+            background: #0d1117;
+            border: 2px solid #30363d;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto 16px;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1/1;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .game-controls button {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .game-controls button:hover {
+            background: #30363d;
+        }
+
+        .game-score {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 12px;
+        }
+
+        .game-score span {
+            color: #f0883e;
+        }
+
         /* ===== 响应式 ===== */
         @media (max-width: 500px) {
             .card {
@@ -204,6 +291,10 @@
             .download-section {
                 padding: 16px 16px;
             }
+            .page-nav button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -211,51 +302,423 @@
 
     <div class="card">
 
-        <!-- 头像：sb3 风格图标 -->
-        <div class="avatar">▶</div>
-
-        <!-- 标题 -->
-        <h1><span class="highlight">sb3</span>_to_<span class="highlight">exe</span></h1>
-
-        <p class="bio">
-            🚀 专注 <strong>sb3_to_exe</strong> 开发 · 将 Scratch 项目一键打包为 Windows 程序<br />
-            轻量 · 快速 · 开箱即用
-        </p>
-
-        <!-- 功能标签 -->
-        <div class="features">
-            <span>🎯 .sb3 → .exe</span>
-            <span>⚡ 无需安装</span>
-            <span>🖥️ Windows 10/11</span>
+        <!-- ===== 翻页导航 ===== -->
+        <div class="page-nav">
+            <button id="page1Btn" class="active">📦 sb3_to_exe</button>
+            <button id="page2Btn">🎮 Snake Game</button>
         </div>
 
-        <hr class="divider" />
+        <!-- ============================================================ -->
+        <!-- 页面1：sb3_to_exe 下载 (.exe) -->
+        <!-- ============================================================ -->
+        <div id="page1" class="page active">
 
-        <!-- ====== 下载区域 ====== -->
-        <div class="download-section">
-            <h2>📦 最新版本</h2>
-            <p class="sub">将 Scratch 项目的 .sb3 文件打包成独立的 Windows 可执行程序</p>
+            <div class="avatar">▶</div>
 
-            <div class="version-badge">v0.0.0.11</div>
+            <h1><span class="highlight">sb3</span>_to_<span class="highlight">exe</span></h1>
 
-            <!-- ★★★ 下载按钮 ★★★ -->
-            <a href="sb3_to_exe0.0.0.11.exe" class="btn-download" download>
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                    <路径 d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
-                    <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
-                    <path d="M8 17h8v1.5H8V17z"/>
-                </svg>
-                下载 sb3_to_exe0.0.0.11.exe
-            </a>
+            <p class="bio">
+                🚀 专注 <strong>sb3_to_exe</strong> 开发 · 将 Scratch 项目一键打包为 Windows 程序<br />
+                轻量 · 快速 · 开箱即用
+            </p>
 
-            <div class="file-info">
-                📦 约 15 MB · 适用于 Windows 10 / 11
+            <div class="features">
+                <span>🎯 .sb3 → .exe</span>
+                <span>⚡ 无需安装</span>
+                <span>🖥️ Windows 10/11</span>
             </div>
+
+            <hr class="divider" />
+
+            <div class="download-section">
+                <h2>📦 最新版本</h2>
+                <p class="sub">将 Scratch 项目的 .sb3 文件打包成独立的 Windows 可执行程序</p>
+
+                <div class="version-badge">v0.0.0.11</div>
+
+                <a href="sb3_to_exe0.0.0.11.exe" class="btn-download" download>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                        <path d="M8 17h8v1.5H8V17z"/>
+                    </svg>
+                    下载 sb3_to_exe0.0.0.11.exe
+                </a>
+
+                <div class="file-info">
+                    📦 约 15 MB · 适用于 Windows 10 / 11
+                </div>
+            </div>
+
+            <hr class="divider" />
+
         </div>
 
-        <hr class="divider" />
+        <!-- ============================================================ -->
+        <!-- 页面2：贪吃蛇游戏 (英文版) 下载 .url -->
+        <!-- ============================================================ -->
+        <div id="page2" class="page">
+
+            <div class="avatar" style="background: linear-gradient(135deg, #3fb950, #2ea043);">🐍</div>
+
+            <h1>Snake <span class="highlight">Game</span></h1>
+
+            <p class="bio">
+                🎮 Classic Snake · Use arrow keys to control<br />
+                Eat food to grow · Don't hit the wall or yourself
+            </p>
+
+            <div class="features">
+                <span>⬆️⬇️⬅️➡️</span>
+                <span>🏆 Score</span>
+                <span>🔄 Restart</span>
+            </div>
+
+            <hr class="divider" />
+
+            <div class="game-score">
+                Score: <span id="scoreDisplay">0</span>
+            </div>
+
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+            <div class="game-controls">
+                <button id="restartBtn">🔄 Restart</button>
+                <button id="pauseBtn">⏸️ Pause</button>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- 下载按钮：贪吃蛇英文版 .url -->
+            <div class="download-section" style="margin-top: 8px;">
+                <h2>📥 Download Snake Game</h2>
+                <p class="sub">Internet shortcut — click to open the game online</p>
+
+                <a href="Snake Game.url" class="btn-download" download>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                        <path d="M8 17h8v1.5H8V17z"/>
+                    </svg>
+                    下载 Snake Game
+                </a>
+
+                <div class="file-info">
+                    🔗 快捷方式 · 指向在线游戏页面
+                </div>
+            </div>
+
+        </div>
 
     </div>
+
+    <script>
+        // ================================================================
+        // 翻页逻辑
+        // ================================================================
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const btn1 = document.getElementById('page1Btn');
+        const btn2 = document.getElementById('page2Btn');
+
+        function showPage(pageId) {
+            if (pageId === 1) {
+                page1.classList.add('active');
+                page2.classList.remove('active');
+                btn1.classList.add('active');
+                btn2.classList.remove('active');
+            } else {
+                page2.classList.add('active');
+                page1.classList.remove('active');
+                btn2.classList.add('active');
+                btn1.classList.remove('active');
+            }
+        }
+
+        btn1.addEventListener('click', () => showPage(1));
+        btn2.addEventListener('click', () => showPage(2));
+
+        // ================================================================
+        // 贪吃蛇游戏 (英文版)
+        // ================================================================
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreSpan = document.getElementById('scoreDisplay');
+
+        const GRID_SIZE = 20;
+        const TILE_COUNT = 20;
+
+        let snake = [
+            { x: 10, y: 10 }
+        ];
+        let direction = { x: 0, y: -1 };
+        let nextDirection = { x: 0, y: -1 };
+        let food = { x: 15, y: 10 };
+        let score = 0;
+        let gameOver = false;
+        let win = false;
+        let paused = false;
+        let gameLoopInterval = null;
+
+        // 生成随机食物（避开蛇身）
+        function generateRandomFood() {
+            const totalTiles = TILE_COUNT * TILE_COUNT;
+            if (snake.length >= totalTiles) {
+                win = true;
+                return null;
+            }
+            const snakeSet = new Set(snake.map(s => `${s.x},${s.y}`));
+            const freeTiles = [];
+            for (let i = 0; i < TILE_COUNT; i++) {
+                for (let j = 0; j < TILE_COUNT; j++) {
+                    if (!snakeSet.has(`${i},${j}`)) {
+                        freeTiles.push({ x: i, y: j });
+                    }
+                }
+            }
+            if (freeTiles.length === 0) {
+                win = true;
+                return null;
+            }
+            const idx = Math.floor(Math.random() * freeTiles.length);
+            return freeTiles[idx];
+        }
+
+        // 重置游戏
+        function resetGame() {
+            snake = [{ x: 10, y: 10 }];
+            direction = { x: 0, y: -1 };
+            nextDirection = { x: 0, y: -1 };
+            score = 0;
+            gameOver = false;
+            win = false;
+            paused = false;
+            document.getElementById('pauseBtn').textContent = '⏸️ Pause';
+            const newFood = generateRandomFood();
+            if (newFood) food = newFood;
+            else food = { x: 5, y: 5 };
+            scoreSpan.textContent = '0';
+            drawCanvas();
+        }
+
+        // 游戏更新
+        function updateGame() {
+            if (gameOver || win || paused) return;
+
+            // 应用方向
+            direction = { ...nextDirection };
+
+            const head = snake[0];
+            const newHead = {
+                x: head.x + direction.x,
+                y: head.y + direction.y
+            };
+
+            // 检查是否吃到食物
+            const isEating = (newHead.x === food.x && newHead.y === food.y);
+
+            // 构建新蛇
+            let newSnake = [newHead, ...snake];
+            if (!isEating) {
+                newSnake.pop();
+            }
+
+            // 碰撞检测 (墙壁)
+            if (newHead.x < 0 || newHead.x >= TILE_COUNT || newHead.y < 0 || newHead.y >= TILE_COUNT) {
+                gameOver = true;
+                drawCanvas();
+                return;
+            }
+
+            // 碰撞检测 (自身) — 注意忽略尾部 (如果是吃到了, 尾部保留, 要检查除了尾部)
+            const headStr = `${newHead.x},${newHead.y}`;
+            // 从索引1开始检查 (忽略头部自身)
+            for (let i = 1; i < newSnake.length; i++) {
+                if (`${newSnake[i].x},${newSnake[i].y}` === headStr) {
+                    gameOver = true;
+                    drawCanvas();
+                    return;
+                }
+            }
+
+            snake = newSnake;
+
+            if (isEating) {
+                score++;
+                scoreSpan.textContent = score;
+                const newFood = generateRandomFood();
+                if (newFood) {
+                    food = newFood;
+                } else {
+                    win = true;
+                }
+            }
+
+            drawCanvas();
+        }
+
+        // 绘制画布
+        function drawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 绘制网格 (浅暗线)
+            ctx.strokeStyle = '#21262d';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= TILE_COUNT; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * GRID_SIZE, 0);
+                ctx.lineTo(i * GRID_SIZE, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i * GRID_SIZE);
+                ctx.lineTo(canvas.width, i * GRID_SIZE);
+                ctx.stroke();
+            }
+
+            // 绘制食物
+            ctx.fillStyle = '#f0883e';
+            ctx.shadowColor = '#f0883e';
+            ctx.shadowBlur = 10;
+            ctx.beginPath();
+            ctx.arc(food.x * GRID_SIZE + GRID_SIZE/2, food.y * GRID_SIZE + GRID_SIZE/2, GRID_SIZE/2 - 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // 绘制蛇
+            snake.forEach((seg, idx) => {
+                const isHead = idx === 0;
+                ctx.fillStyle = isHead ? '#3fb950' : '#238636';
+                ctx.shadowColor = isHead ? '#3fb950' : '#238636';
+                ctx.shadowBlur = isHead ? 12 : 6;
+                const x = seg.x * GRID_SIZE + 1;
+                const y = seg.y * GRID_SIZE + 1;
+                const w = GRID_SIZE - 2;
+                const h = GRID_SIZE - 2;
+                ctx.beginPath();
+                ctx.roundRect(x, y, w, h, 4);
+                ctx.fill();
+            });
+            ctx.shadowBlur = 0;
+
+            // 游戏结束 / 胜利 信息
+            if (gameOver) {
+                ctx.fillStyle = 'rgba(0,0,0,0.7)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#f0883e';
+                ctx.font = 'bold 32px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('💀 GAME OVER', canvas.width/2, canvas.height/2 - 10);
+                ctx.fillStyle = '#8b949e';
+                ctx.font = '16px sans-serif';
+                ctx.fillText('Press Restart', canvas.width/2, canvas.height/2 + 40);
+            } else if (win) {
+                ctx.fillStyle = 'rgba(0,0,0,0.7)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#3fb950';
+                ctx.font = 'bold 32px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('🎉 YOU WIN!', canvas.width/2, canvas.height/2 - 10);
+                ctx.fillStyle = '#8b949e';
+                ctx.font = '16px sans-serif';
+                ctx.fillText('Perfect!', canvas.width/2, canvas.height/2 + 40);
+            } else if (paused) {
+                ctx.fillStyle = 'rgba(0,0,0,0.5)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#c9d1d9';
+                ctx.font = 'bold 28px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('⏸ PAUSED', canvas.width/2, canvas.height/2);
+            }
+        }
+
+        // roundRect 辅助
+        CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+            if (w < 2 * r) r = w / 2;
+            if (h < 2 * r) r = h / 2;
+            this.moveTo(x + r, y);
+            this.lineTo(x + w - r, y);
+            this.quadraticCurveTo(x + w, y, x + w, y + r);
+            this.lineTo(x + w, y + h - r);
+            this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            this.lineTo(x + r, y + h);
+            this.quadraticCurveTo(x, y + h, x, y + h - r);
+            this.lineTo(x, y + r);
+            this.quadraticCurveTo(x, y, x + r, y);
+            this.closePath();
+            return this;
+        };
+
+        // 键盘控制
+        function handleKey(e) {
+            const key = e.key;
+            e.preventDefault();
+
+            if (gameOver || win) return;
+
+            switch (key) {
+                case 'ArrowUp':
+                    if (direction.y !== 1) nextDirection = { x: 0, y: -1 };
+                    break;
+                case 'ArrowDown':
+                    if (direction.y !== -1) nextDirection = { x: 0, y: 1 };
+                    break;
+                case 'ArrowLeft':
+                    if (direction.x !== 1) nextDirection = { x: -1, y: 0 };
+                    break;
+                case 'ArrowRight':
+                    if (direction.x !== -1) nextDirection = { x: 1, y: 0 };
+                    break;
+                case ' ':
+                    togglePause();
+                    break;
+            }
+        }
+
+        function togglePause() {
+            if (gameOver || win) return;
+            paused = !paused;
+            document.getElementById('pauseBtn').textContent = paused ? '▶️ Resume' : '⏸️ Pause';
+            drawCanvas();
+        }
+
+        // 启动循环
+        function startGameLoop() {
+            if (gameLoopInterval) clearInterval(gameLoopInterval);
+            gameLoopInterval = setInterval(updateGame, 150);
+        }
+
+        // 初始化
+        function initGame() {
+            resetGame();
+            startGameLoop();
+            window.addEventListener('keydown', handleKey);
+            document.getElementById('restartBtn').addEventListener('click', () => {
+                resetGame();
+                if (paused) {
+                    paused = false;
+                    document.getElementById('pauseBtn').textContent = '⏸️ Pause';
+                }
+            });
+            document.getElementById('pauseBtn').addEventListener('click', togglePause);
+        }
+
+        // 页面2激活时确保画布正常
+        // 但翻页不会重置游戏，保持状态
+        initGame();
+
+        // 修复翻页后键盘焦点问题
+        document.addEventListener('keydown', (e) => {
+            if (e.key.startsWith('Arrow') || e.key === ' ') {
+                e.preventDefault();
+            }
+        });
+
+        console.log('🐍 Snake Game (English) loaded.');
+        console.log('📦 sb3_to_exe page ready.');
+    </script>
 
 </body>
 </html>
