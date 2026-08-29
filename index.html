@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-    <script src="https://cdn.staticfile.net/translate.js/3.18.66/translate.js">
-    </script>
     <style>
         * {
             margin: 0;
@@ -187,37 +185,6 @@
         .page.active {
             display: block;
         }
-
-        /* ===== 语言切换按钮 ===== */
-        .lang-btns {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            margin-bottom: 12px;
-        }
-        .lang-btns button {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            color: #8b949e;
-            padding: 4px 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s, border-color 0.2s;
-            font-family: inherit;
-        }
-        .lang-btns button:hover {
-            background: #21262d;
-            color: #c9d1d9;
-        }
-        .lang-btns button.active-lang {
-            background: #238636;
-            border-color: #238636;
-            color: #fff;
-        }
-
-        /* ===== sb3_to_apk 占位 ===== */
         .coming-soon {
             background: #1c2333;
             border: 1px dashed #8b5cf6;
@@ -242,8 +209,6 @@
             font-size: 14px;
             margin-top: 4px;
         }
-
-        /* ===== 贪吃蛇 ===== */
         #gameCanvas {
             background: #0d1117;
             border: 2px solid #30363d;
@@ -283,7 +248,6 @@
         .game-score span {
             color: #f0883e;
         }
-
         @media (max-width: 500px) {
             .card {
                 padding: 32px 20px;
@@ -303,16 +267,6 @@
                 padding: 8px 16px;
                 font-size: 13px;
             }
-            .lang-btns {
-                justify-content: center;
-            }
-        }
-
-        .translate-hidden {
-            display: none !important;
-        }
-        #translate-select {
-            display: none !important;
         }
     </style>
 </head>
@@ -320,19 +274,13 @@
 
     <div class="card">
 
-        <!-- ===== 语言切换按钮 ZH / EN ===== -->
-        <div class="lang-btns">
-            <button id="langZh" class="active-lang">ZH</button>
-            <button id="langEn">EN</button>
-        </div>
-
         <!-- ===== 翻页导航 ===== -->
         <div class="page-nav">
             <button id="page1Btn" class="active">📦 sb3_to_exe</button>
             <button id="page2Btn">🎮 Snake Game</button>
         </div>
 
-        <!-- ===== 页面1 ===== -->
+        <!-- ===== 页面1：sb3_to_exe ===== -->
         <div id="page1" class="page active">
             <div class="avatar">▶</div>
             <h1><span class="highlight">sb3</span>_to_<span class="highlight">exe</span></h1>
@@ -365,7 +313,7 @@
             <hr class="divider" />
         </div>
 
-        <!-- ===== 页面2 ===== -->
+        <!-- ===== 页面2：贪吃蛇 ===== -->
         <div id="page2" class="page">
             <div class="avatar green">🐍</div>
             <h1>Snake <span class="highlight">Game</span></h1>
@@ -401,49 +349,9 @@
     </div>
 
     <script>
-        // ===== localStorage 持久化 =====
-        const LANG_KEY = 'preferred_language';
-        const DEFAULT_LANG = 'chinese_simplified';
-
-        function getSavedLang() {
-            const saved = localStorage.getItem(LANG_KEY);
-            if (saved === 'chinese_simplified' || saved === 'english') {
-                return saved;
-            }
-            return DEFAULT_LANG;
-        }
-
-        function saveLang(lang) {
-            localStorage.setItem(LANG_KEY, lang);
-        }
-
-        // ===== 切换语言 =====
-        function setLanguage(lang) {
-            if (lang !== 'chinese_simplified' && lang !== 'english') return;
-            translate.language.setLocal(lang);
-            translate.execute();
-            saveLang(lang);
-            // 更新按钮高亮
-            document.getElementById('langZh').classList.toggle('active-lang', lang === 'chinese_simplified');
-            document.getElementById('langEn').classList.toggle('active-lang', lang === 'english');
-        }
-
-        // ===== 初始化 translate.js =====
-        const savedLang = getSavedLang();
-        translate.language.setLocal(savedLang);
-        translate.selectLanguageTag.show = false;
-        translate.selectLanguageTag.setAttribute = false;
-        translate.execute();
-
-        // ===== 按钮事件 =====
-        document.getElementById('langZh').addEventListener('click', () => setLanguage('chinese_simplified'));
-        document.getElementById('langEn').addEventListener('click', () => setLanguage('english'));
-
-        // 高亮当前语言
-        document.getElementById('langZh').classList.toggle('active-lang', savedLang === 'chinese_simplified');
-        document.getElementById('langEn').classList.toggle('active-lang', savedLang === 'english');
-
-        // ===== 翻页 =====
+        // ================================================================
+        // 翻页
+        // ================================================================
         const page1 = document.getElementById('page1');
         const page2 = document.getElementById('page2');
         const btn1 = document.getElementById('page1Btn');
@@ -465,7 +373,9 @@
         btn1.addEventListener('click', () => showPage(1));
         btn2.addEventListener('click', () => showPage(2));
 
-        // ===== 贪吃蛇 =====
+        // ================================================================
+        // 贪吃蛇
+        // ================================================================
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const scoreSpan = document.getElementById('scoreDisplay');
@@ -675,7 +585,7 @@
             if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
         });
 
-        console.log('🌍 当前语言: ' + savedLang + (localStorage.getItem(LANG_KEY) ? ' (已保存)' : ' (默认)'));
+        console.log('✅ 页面加载完成');
     </script>
 
 </body>
