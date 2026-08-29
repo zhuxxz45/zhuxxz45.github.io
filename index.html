@@ -38,7 +38,6 @@
             width: 96px;
             height: 96px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f0883e, #e36209);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -49,8 +48,14 @@
             user-select: none;
             box-shadow: 0 4px 16px rgba(227, 98, 9, 0.3);
         }
+        .avatar.orange {
+            background: linear-gradient(135deg, #f0883e, #e36209);
+        }
         .avatar.green {
             background: linear-gradient(135deg, #3fb950, #2ea043);
+        }
+        .avatar.purple {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
         }
         h1 {
             font-size: 26px;
@@ -60,6 +65,9 @@
         }
         h1 .highlight {
             color: #f0883e;
+        }
+        h1 .purple-text {
+            color: #8b5cf6;
         }
         .bio {
             font-size: 15px;
@@ -102,6 +110,10 @@
             font-family: monospace;
             font-weight: 600;
         }
+        .version-badge.purple {
+            color: #8b5cf6;
+            border-color: #8b5cf6;
+        }
         .btn-download {
             display: inline-flex;
             align-items: center;
@@ -131,6 +143,13 @@
             fill: currentColor;
             flex-shrink: 0;
         }
+        .btn-download.purple {
+            background: #7c3aed;
+            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+        }
+        .btn-download.purple:hover {
+            background: #8b5cf6;
+        }
         .file-info {
             margin-top: 14px;
             font-size: 13px;
@@ -154,7 +173,7 @@
         }
         .page-nav {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 20px;
@@ -163,9 +182,9 @@
             background: #21262d;
             border: 1px solid #30363d;
             color: #c9d1d9;
-            padding: 10px 28px;
+            padding: 10px 20px;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, border-color 0.2s;
@@ -177,6 +196,11 @@
         .page-nav button.active {
             background: #238636;
             border-color: #238636;
+            color: #fff;
+        }
+        .page-nav button.active-purple {
+            background: #7c3aed;
+            border-color: #7c3aed;
             color: #fff;
         }
         .page {
@@ -248,6 +272,24 @@
         .game-score span {
             color: #f0883e;
         }
+        .password-hint {
+            margin-top: 14px;
+            padding: 10px 16px;
+            background: #1c2333;
+            border-radius: 10px;
+            border: 1px solid #30363d;
+        }
+        .password-hint .label {
+            color: #8b949e;
+            font-size: 13px;
+        }
+        .password-hint .code {
+            color: #f0883e;
+            font-family: monospace;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
         @media (max-width: 500px) {
             .card {
                 padding: 32px 20px;
@@ -264,8 +306,8 @@
                 padding: 16px;
             }
             .page-nav button {
-                padding: 8px 16px;
-                font-size: 13px;
+                padding: 8px 14px;
+                font-size: 12px;
             }
         }
     </style>
@@ -278,11 +320,14 @@
         <div class="page-nav">
             <button id="page1Btn" class="active">📦 sb3_to_exe</button>
             <button id="page2Btn">🎮 Snake Game</button>
+            <button id="page3Btn">🖱️ 光标管理工具</button>
         </div>
 
-        <!-- ===== 页面1：sb3_to_exe ===== -->
+        <!-- ============================================================ -->
+        <!-- 页面1：sb3_to_exe -->
+        <!-- ============================================================ -->
         <div id="page1" class="page active">
-            <div class="avatar">▶</div>
+            <div class="avatar orange">▶</div>
             <h1><span class="highlight">sb3</span>_to_<span class="highlight">exe</span></h1>
             <p class="bio">🚀 专注 <strong>sb3_to_exe</strong> 开发 · 将 Scratch 项目一键打包为 Windows 程序<br />轻量 · 快速 · 开箱即用</p>
             <div class="features">
@@ -313,7 +358,9 @@
             <hr class="divider" />
         </div>
 
-        <!-- ===== 页面2：贪吃蛇 ===== -->
+        <!-- ============================================================ -->
+        <!-- 页面2：贪吃蛇 -->
+        <!-- ============================================================ -->
         <div id="page2" class="page">
             <div class="avatar green">🐍</div>
             <h1>Snake <span class="highlight">Game</span></h1>
@@ -346,32 +393,77 @@
             </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- 页面3：光标管理工具（.7z，密码 appappappapp） -->
+        <!-- ============================================================ -->
+        <div id="page3" class="page">
+            <div class="avatar purple">🖱️</div>
+            <h1>光标<span class="purple-text">管理工具</span></h1>
+            <p class="bio">🎯 专业的鼠标光标管理工具 · 自定义光标样式 · 提升操作效率</p>
+            <div class="features">
+                <span>🖱️ 光标管理</span>
+                <span>⚡ 实时切换</span>
+                <span>🖥️ Windows 10/11</span>
+            </div>
+            <hr class="divider" />
+            <div class="download-section">
+                <h2>📦 最新版本</h2>
+                <p class="sub">管理 Windows 鼠标光标样式 · 一键切换 · 简单易用</p>
+                <div class="version-badge purple">v1.0.0</div>
+                <a href="光标管理工具.7z" class="btn-download purple" download>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                        <path d="M8 17h8v1.5H8V17z"/>
+                    </svg>
+                    下载 光标管理工具.exe
+                </a>
+                <div class="password-hint">
+                    <span class="label">🔑 密码：</span>
+                    <span class="code">appappappapp</span>
+                </div>
+                <div class="file-info">📦 约 2 MB · 适用于 Windows 10 / 11</div>
+            </div>
+            <hr class="divider" />
+        </div>
+
     </div>
 
     <script>
         // ================================================================
-        // 翻页
+        // 翻页（三页）
         // ================================================================
         const page1 = document.getElementById('page1');
         const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
         const btn1 = document.getElementById('page1Btn');
         const btn2 = document.getElementById('page2Btn');
+        const btn3 = document.getElementById('page3Btn');
+
+        function clearActive() {
+            [btn1, btn2, btn3].forEach(b => {
+                b.classList.remove('active', 'active-purple');
+            });
+            [page1, page2, page3].forEach(p => p.classList.remove('active'));
+        }
 
         function showPage(id) {
+            clearActive();
             if (id === 1) {
                 page1.classList.add('active');
-                page2.classList.remove('active');
                 btn1.classList.add('active');
-                btn2.classList.remove('active');
-            } else {
+            } else if (id === 2) {
                 page2.classList.add('active');
-                page1.classList.remove('active');
                 btn2.classList.add('active');
-                btn1.classList.remove('active');
+            } else if (id === 3) {
+                page3.classList.add('active');
+                btn3.classList.add('active-purple');
             }
         }
+
         btn1.addEventListener('click', () => showPage(1));
         btn2.addEventListener('click', () => showPage(2));
+        btn3.addEventListener('click', () => showPage(3));
 
         // ================================================================
         // 贪吃蛇
@@ -585,7 +677,7 @@
             if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
         });
 
-        console.log('✅ 页面加载完成');
+        console.log('✅ 三页版加载完成：sb3_to_exe / Snake Game / 光标管理工具');
     </script>
 
 </body>
