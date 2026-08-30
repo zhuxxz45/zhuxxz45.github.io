@@ -48,27 +48,16 @@
             user-select: none;
             box-shadow: 0 4px 16px rgba(227, 98, 9, 0.3);
         }
-        .avatar.orange {
-            background: linear-gradient(135deg, #f0883e, #e36209);
-        }
-        .avatar.green {
-            background: linear-gradient(135deg, #3fb950, #2ea043);
-        }
-        .avatar.purple {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
+        .avatar.orange { background: linear-gradient(135deg, #f0883e, #e36209); }
+        .avatar.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
         h1 {
             font-size: 26px;
             font-weight: 700;
             color: #f0f6fc;
             margin-bottom: 4px;
         }
-        h1 .highlight {
-            color: #f0883e;
-        }
-        h1 .purple-text {
-            color: #8b5cf6;
-        }
+        h1 .highlight { color: #f0883e; }
+        h1 .purple-text { color: #8b5cf6; }
         .bio {
             font-size: 15px;
             color: #8b949e;
@@ -110,10 +99,7 @@
             font-family: monospace;
             font-weight: 600;
         }
-        .version-badge.purple {
-            color: #8b5cf6;
-            border-color: #8b5cf6;
-        }
+        .version-badge.purple { color: #8b5cf6; border-color: #8b5cf6; }
         .btn-download {
             display: inline-flex;
             align-items: center;
@@ -130,26 +116,16 @@
             transition: background 0.2s, transform 0.1s;
             box-shadow: 0 2px 8px rgba(35, 134, 54, 0.3);
         }
-        .btn-download:hover {
-            background: #2ea043;
-            transform: scale(1.02);
-        }
-        .btn-download:active {
-            transform: scale(0.97);
-        }
+        .btn-download:hover { background: #2ea043; transform: scale(1.02); }
+        .btn-download:active { transform: scale(0.97); }
         .btn-download svg {
             width: 20px;
             height: 20px;
             fill: currentColor;
             flex-shrink: 0;
         }
-        .btn-download.purple {
-            background: #7c3aed;
-            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
-        }
-        .btn-download.purple:hover {
-            background: #8b5cf6;
-        }
+        .btn-download.purple { background: #7c3aed; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3); }
+        .btn-download.purple:hover { background: #8b5cf6; }
         .file-info {
             margin-top: 14px;
             font-size: 13px;
@@ -182,33 +158,18 @@
             background: #21262d;
             border: 1px solid #30363d;
             color: #c9d1d9;
-            padding: 10px 20px;
+            padding: 10px 28px;
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, border-color 0.2s;
         }
-        .page-nav button:hover {
-            background: #30363d;
-            border-color: #58a6ff;
-        }
-        .page-nav button.active {
-            background: #238636;
-            border-color: #238636;
-            color: #fff;
-        }
-        .page-nav button.active-purple {
-            background: #7c3aed;
-            border-color: #7c3aed;
-            color: #fff;
-        }
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
+        .page-nav button:hover { background: #30363d; border-color: #58a6ff; }
+        .page-nav button.active { background: #238636; border-color: #238636; color: #fff; }
+        .page-nav button.active-purple { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+        .page { display: none; }
+        .page.active { display: block; }
         .coming-soon {
             background: #1c2333;
             border: 1px dashed #8b5cf6;
@@ -218,60 +179,9 @@
             color: #c9d1d9;
             font-size: 15px;
         }
-        .coming-soon .icon {
-            font-size: 28px;
-            display: block;
-            margin-bottom: 6px;
-        }
-        .coming-soon .title {
-            color: #8b5cf6;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .coming-soon .desc {
-            color: #8b949e;
-            font-size: 14px;
-            margin-top: 4px;
-        }
-        #gameCanvas {
-            background: #0d1117;
-            border: 2px solid #30363d;
-            border-radius: 12px;
-            display: block;
-            margin: 0 auto 16px;
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 1/1;
-        }
-        .game-controls {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-        .game-controls button {
-            background: #21262d;
-            border: 1px solid #30363d;
-            color: #c9d1d9;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .game-controls button:hover {
-            background: #30363d;
-        }
-        .game-score {
-            font-size: 18px;
-            font-weight: 600;
-            color: #f0f6fc;
-            margin-bottom: 12px;
-        }
-        .game-score span {
-            color: #f0883e;
-        }
+        .coming-soon .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+        .coming-soon .title { color: #8b5cf6; font-weight: 700; font-size: 18px; }
+        .coming-soon .desc { color: #8b949e; font-size: 14px; margin-top: 4px; }
         .password-hint {
             margin-top: 14px;
             padding: 10px 16px;
@@ -279,10 +189,7 @@
             border-radius: 10px;
             border: 1px solid #30363d;
         }
-        .password-hint .label {
-            color: #8b949e;
-            font-size: 13px;
-        }
+        .password-hint .label { color: #8b949e; font-size: 13px; }
         .password-hint .code {
             color: #f0883e;
             font-family: monospace;
@@ -291,24 +198,11 @@
             letter-spacing: 2px;
         }
         @media (max-width: 500px) {
-            .card {
-                padding: 32px 20px;
-            }
-            h1 {
-                font-size: 22px;
-            }
-            .btn-download {
-                width: 100%;
-                justify-content: center;
-                padding: 14px 20px;
-            }
-            .download-section {
-                padding: 16px;
-            }
-            .page-nav button {
-                padding: 8px 14px;
-                font-size: 12px;
-            }
+            .card { padding: 32px 20px; }
+            h1 { font-size: 22px; }
+            .btn-download { width: 100%; justify-content: center; padding: 14px 20px; }
+            .download-section { padding: 16px; }
+            .page-nav button { padding: 8px 16px; font-size: 13px; }
         }
     </style>
 </head>
@@ -316,11 +210,10 @@
 
     <div class="card">
 
-        <!-- ===== 翻页导航 ===== -->
+        <!-- ===== 翻页导航（两页） ===== -->
         <div class="page-nav">
             <button id="page1Btn" class="active">📦 sb3_to_exe</button>
-            <button id="page2Btn">🎮 Snake Game</button>
-            <button id="page3Btn">🖱️ 光标管理工具</button>
+            <button id="page2Btn">🖱️ 光标管理工具</button>
         </div>
 
         <!-- ============================================================ -->
@@ -359,44 +252,9 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- 页面2：贪吃蛇 -->
+        <!-- 页面2：光标管理工具（.7z，密码 appappappapp） -->
         <!-- ============================================================ -->
         <div id="page2" class="page">
-            <div class="avatar green">🐍</div>
-            <h1>Snake <span class="highlight">Game</span></h1>
-            <p class="bio">🎮 经典贪吃蛇 · 使用方向键控制<br />吃掉食物生长 · 不要撞墙或撞到自己</p>
-            <div class="features">
-                <span>⬆️⬇️⬅️➡️</span>
-                <span>🏆 得分</span>
-                <span>🔄 重新开始</span>
-            </div>
-            <hr class="divider" />
-            <div class="game-score"><span>得分</span>: <span id="scoreDisplay">0</span></div>
-            <canvas id="gameCanvas" width="400" height="400"></canvas>
-            <div class="game-controls">
-                <button id="restartBtn">🔄 重新开始</button>
-                <button id="pauseBtn">⏸️ 暂停</button>
-            </div>
-            <hr class="divider" />
-            <div class="download-section" style="margin-top:8px;">
-                <h2>📥 下载贪吃蛇游戏</h2>
-                <p class="sub">互联网快捷方式 — 点击打开在线游戏</p>
-                <a href="Snake Game.url" class="btn-download" download>
-                    <svg viewBox="0 0 24 24" width="20" height="20">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
-                        <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
-                        <path d="M8 17h8v1.5H8V17z"/>
-                    </svg>
-                    下载 Snake Game
-                </a>
-                <div class="file-info">🔗 快捷方式 · 指向在线游戏页面</div>
-            </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 页面3：光标管理工具（.7z，密码 appappappapp） -->
-        <!-- ============================================================ -->
-        <div id="page3" class="page">
             <div class="avatar purple">🖱️</div>
             <h1>光标<span class="purple-text">管理工具</span></h1>
             <p class="bio">🎯 专业的鼠标光标管理工具 · 自定义光标样式 · 提升操作效率</p>
@@ -431,20 +289,18 @@
 
     <script>
         // ================================================================
-        // 翻页（三页）
+        // 翻页（两页）
         // ================================================================
         const page1 = document.getElementById('page1');
         const page2 = document.getElementById('page2');
-        const page3 = document.getElementById('page3');
         const btn1 = document.getElementById('page1Btn');
         const btn2 = document.getElementById('page2Btn');
-        const btn3 = document.getElementById('page3Btn');
 
         function clearActive() {
-            [btn1, btn2, btn3].forEach(b => {
-                b.classList.remove('active', 'active-purple');
-            });
-            [page1, page2, page3].forEach(p => p.classList.remove('active'));
+            btn1.classList.remove('active', 'active-purple');
+            btn2.classList.remove('active', 'active-purple');
+            page1.classList.remove('active');
+            page2.classList.remove('active');
         }
 
         function showPage(id) {
@@ -452,232 +308,16 @@
             if (id === 1) {
                 page1.classList.add('active');
                 btn1.classList.add('active');
-            } else if (id === 2) {
+            } else {
                 page2.classList.add('active');
-                btn2.classList.add('active');
-            } else if (id === 3) {
-                page3.classList.add('active');
-                btn3.classList.add('active-purple');
+                btn2.classList.add('active-purple');
             }
         }
 
         btn1.addEventListener('click', () => showPage(1));
         btn2.addEventListener('click', () => showPage(2));
-        btn3.addEventListener('click', () => showPage(3));
 
-        // ================================================================
-        // 贪吃蛇
-        // ================================================================
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const scoreSpan = document.getElementById('scoreDisplay');
-
-        const GRID = 20,
-            SIZE = 20;
-        let snake = [{ x: 10, y: 10 }];
-        let dir = { x: 0, y: -1 },
-            nextDir = { x: 0, y: -1 };
-        let food = { x: 15, y: 10 };
-        let score = 0,
-            gameOver = false,
-            win = false,
-            paused = false,
-            loop = null;
-
-        function randomFood() {
-            if (snake.length >= SIZE * SIZE) { win = true; return null; }
-            const set = new Set(snake.map(s => `${s.x},${s.y}`));
-            const free = [];
-            for (let i = 0; i < SIZE; i++)
-                for (let j = 0; j < SIZE; j++)
-                    if (!set.has(`${i},${j}`)) free.push({ x: i, y: j });
-            if (!free.length) { win = true; return null; }
-            return free[Math.floor(Math.random() * free.length)];
-        }
-
-        function resetGame() {
-            snake = [{ x: 10, y: 10 }];
-            dir = { x: 0, y: -1 };
-            nextDir = { x: 0, y: -1 };
-            score = 0;
-            gameOver = false;
-            win = false;
-            paused = false;
-            document.getElementById('pauseBtn').textContent = '⏸️ 暂停';
-            const f = randomFood();
-            food = f || { x: 5, y: 5 };
-            scoreSpan.textContent = '0';
-            drawCanvas();
-        }
-
-        function update() {
-            if (gameOver || win || paused) return;
-            dir = { ...nextDir };
-            const head = snake[0];
-            const newHead = { x: head.x + dir.x, y: head.y + dir.y };
-            const eating = (newHead.x === food.x && newHead.y === food.y);
-            let newSnake = [newHead, ...snake];
-            if (!eating) newSnake.pop();
-            if (newHead.x < 0 || newHead.x >= SIZE || newHead.y < 0 || newHead.y >= SIZE) {
-                gameOver = true;
-                drawCanvas();
-                return;
-            }
-            const hs = `${newHead.x},${newHead.y}`;
-            for (let i = 1; i < newSnake.length; i++) {
-                if (`${newSnake[i].x},${newSnake[i].y}` === hs) {
-                    gameOver = true;
-                    drawCanvas();
-                    return;
-                }
-            }
-            snake = newSnake;
-            if (eating) {
-                score++;
-                scoreSpan.textContent = score;
-                const f = randomFood();
-                if (f) food = f;
-                else win = true;
-            }
-            drawCanvas();
-        }
-
-        function drawCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#21262d';
-            ctx.lineWidth = 0.5;
-            for (let i = 0; i <= SIZE; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * GRID, 0);
-                ctx.lineTo(i * GRID, canvas.height);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(0, i * GRID);
-                ctx.lineTo(canvas.width, i * GRID);
-                ctx.stroke();
-            }
-            ctx.fillStyle = '#f0883e';
-            ctx.shadowColor = '#f0883e';
-            ctx.shadowBlur = 10;
-            ctx.beginPath();
-            ctx.arc(food.x * GRID + GRID / 2, food.y * GRID + GRID / 2, GRID / 2 - 2, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            snake.forEach((s, i) => {
-                const isHead = i === 0;
-                ctx.fillStyle = isHead ? '#3fb950' : '#238636';
-                ctx.shadowColor = isHead ? '#3fb950' : '#238636';
-                ctx.shadowBlur = isHead ? 12 : 6;
-                const x = s.x * GRID + 1,
-                    y = s.y * GRID + 1;
-                ctx.beginPath();
-                ctx.roundRect(x, y, GRID - 2, GRID - 2, 4);
-                ctx.fill();
-            });
-            ctx.shadowBlur = 0;
-            if (gameOver) {
-                ctx.fillStyle = 'rgba(0,0,0,0.7)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#f0883e';
-                ctx.font = 'bold 32px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('💀 GAME OVER', canvas.width / 2, canvas.height / 2 - 10);
-                ctx.fillStyle = '#8b949e';
-                ctx.font = '16px sans-serif';
-                ctx.fillText('点击重新开始', canvas.width / 2, canvas.height / 2 + 40);
-            } else if (win) {
-                ctx.fillStyle = 'rgba(0,0,0,0.7)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#3fb950';
-                ctx.font = 'bold 32px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('🎉 YOU WIN!', canvas.width / 2, canvas.height / 2 - 10);
-                ctx.fillStyle = '#8b949e';
-                ctx.font = '16px sans-serif';
-                ctx.fillText('完美！', canvas.width / 2, canvas.height / 2 + 40);
-            } else if (paused) {
-                ctx.fillStyle = 'rgba(0,0,0,0.5)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#c9d1d9';
-                ctx.font = 'bold 28px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('⏸ 已暂停', canvas.width / 2, canvas.height / 2);
-            }
-        }
-
-        CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-            if (w < 2 * r) r = w / 2;
-            if (h < 2 * r) r = h / 2;
-            this.moveTo(x + r, y);
-            this.lineTo(x + w - r, y);
-            this.quadraticCurveTo(x + w, y, x + w, y + r);
-            this.lineTo(x + w, y + h - r);
-            this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-            this.lineTo(x + r, y + h);
-            this.quadraticCurveTo(x, y + h, x, y + h - r);
-            this.lineTo(x, y + r);
-            this.quadraticCurveTo(x, y, x + r, y);
-            this.closePath();
-            return this;
-        };
-
-        function handleKey(e) {
-            const k = e.key;
-            e.preventDefault();
-            if (gameOver || win) return;
-            switch (k) {
-                case 'ArrowUp':
-                    if (dir.y !== 1) nextDir = { x: 0, y: -1 };
-                    break;
-                case 'ArrowDown':
-                    if (dir.y !== -1) nextDir = { x: 0, y: 1 };
-                    break;
-                case 'ArrowLeft':
-                    if (dir.x !== 1) nextDir = { x: -1, y: 0 };
-                    break;
-                case 'ArrowRight':
-                    if (dir.x !== -1) nextDir = { x: 1, y: 0 };
-                    break;
-                case ' ':
-                    togglePause();
-                    break;
-            }
-        }
-
-        function togglePause() {
-            if (gameOver || win) return;
-            paused = !paused;
-            document.getElementById('pauseBtn').textContent = paused ? '▶️ 继续' : '⏸️ 暂停';
-            drawCanvas();
-        }
-
-        function startLoop() {
-            if (loop) clearInterval(loop);
-            loop = setInterval(update, 150);
-        }
-
-        function initGame() {
-            resetGame();
-            startLoop();
-            window.addEventListener('keydown', handleKey);
-            document.getElementById('restartBtn').addEventListener('click', () => {
-                resetGame();
-                if (paused) {
-                    paused = false;
-                    document.getElementById('pauseBtn').textContent = '⏸️ 暂停';
-                }
-            });
-            document.getElementById('pauseBtn').addEventListener('click', togglePause);
-        }
-        initGame();
-        document.addEventListener('keydown', (e) => {
-            if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
-        });
-
-        console.log('✅ 三页版加载完成：sb3_to_exe / Snake Game / 光标管理工具');
+        console.log('✅ 两页版加载完成：sb3_to_exe / 光标管理工具');
     </script>
 
 </body>
