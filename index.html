@@ -51,6 +51,7 @@
         .avatar.orange { background: linear-gradient(135deg, #f0883e, #e36209); }
         .avatar.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
         .avatar.blue { background: linear-gradient(135deg, #1f6feb, #388bfd); }
+        .avatar.cyan { background: linear-gradient(135deg, #1f8b8b, #2ea9a9); }
         h1 {
             font-size: 26px;
             font-weight: 700;
@@ -60,6 +61,7 @@
         h1 .highlight { color: #f0883e; }
         h1 .purple-text { color: #8b5cf6; }
         h1 .blue-text { color: #58a6ff; }
+        h1 .cyan-text { color: #3fb9b9; }
         .bio {
             font-size: 15px;
             color: #8b949e;
@@ -103,6 +105,7 @@
         }
         .version-badge.purple { color: #8b5cf6; border-color: #8b5cf6; }
         .version-badge.blue { color: #58a6ff; border-color: #58a6ff; }
+        .version-badge.cyan { color: #3fb9b9; border-color: #3fb9b9; }
         .btn-download {
             display: inline-flex;
             align-items: center;
@@ -131,6 +134,10 @@
         .btn-download.purple:hover { background: #8b5cf6; }
         .btn-download.blue { background: #1f6feb; box-shadow: 0 2px 8px rgba(31, 111, 235, 0.3); }
         .btn-download.blue:hover { background: #388bfd; }
+        .btn-download.cyan { background: #1f8b8b; box-shadow: 0 2px 8px rgba(31, 139, 139, 0.3); }
+        .btn-download.cyan:hover { background: #2ea9a9; }
+        .btn-download.gray { background: #21262d; border: 1px solid #30363d; box-shadow: none; }
+        .btn-download.gray:hover { background: #30363d; }
         .file-info {
             margin-top: 14px;
             font-size: 13px;
@@ -154,7 +161,7 @@
         }
         .page-nav {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 20px;
@@ -163,9 +170,9 @@
             background: #21262d;
             border: 1px solid #30363d;
             color: #c9d1d9;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, border-color 0.2s;
@@ -174,6 +181,7 @@
         .page-nav button.active { background: #238636; border-color: #238636; color: #fff; }
         .page-nav button.active-purple { background: #7c3aed; border-color: #7c3aed; color: #fff; }
         .page-nav button.active-blue { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+        .page-nav button.active-cyan { background: #1f8b8b; border-color: #1f8b8b; color: #fff; }
         .page { display: none; }
         .page.active { display: block; }
         .coming-soon {
@@ -203,12 +211,21 @@
             font-weight: 700;
             letter-spacing: 2px;
         }
+        .file-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .file-group .btn-download {
+            justify-content: center;
+        }
         @media (max-width: 500px) {
             .card { padding: 32px 20px; }
             h1 { font-size: 22px; }
             .btn-download { width: 100%; justify-content: center; padding: 14px 20px; }
             .download-section { padding: 16px; }
-            .page-nav button { padding: 6px 12px; font-size: 11px; }
+            .page-nav button { padding: 6px 10px; font-size: 10px; }
         }
     </style>
 </head>
@@ -216,11 +233,12 @@
 
     <div class="card">
 
-        <!-- ===== 翻页导航（三页） ===== -->
+        <!-- ===== 翻页导航（四页） ===== -->
         <div class="page-nav">
             <button id="page1Btn" class="active">📦 sb3_to_exe</button>
             <button id="page2Btn">🖱️ 光标管理工具</button>
             <button id="page3Btn">📦 ed2k提取工具</button>
+            <button id="page4Btn">🧹 Cache Cleaner</button>
         </div>
 
         <!-- ============================================================ -->
@@ -259,7 +277,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- 页面2：光标管理工具（.7z，密码 appappappapp） -->
+        <!-- 页面2：光标管理工具 -->
         <!-- ============================================================ -->
         <div id="page2" class="page">
             <div class="avatar purple">🖱️</div>
@@ -293,7 +311,7 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- 页面3：ed2k提取工具（.url，按钮不显示后缀） -->
+        <!-- 页面3：ed2k提取工具 -->
         <!-- ============================================================ -->
         <div id="page3" class="page">
             <div class="avatar blue">📦</div>
@@ -322,26 +340,69 @@
             <hr class="divider" />
         </div>
 
+        <!-- ============================================================ -->
+        <!-- 页面4：Cache Cleaner -->
+        <!-- ============================================================ -->
+        <div id="page4" class="page">
+            <div class="avatar cyan">🧹</div>
+            <h1>Cache <span class="cyan-text">Cleaner</span></h1>
+            <p class="bio">🧹 清理系统缓存 · 释放磁盘空间 · 提升电脑性能</p>
+            <div class="features">
+                <span>🗑️ 清理缓存</span>
+                <span>⚡ 一键清理</span>
+                <span>🖥️ Windows 10/11</span>
+            </div>
+            <hr class="divider" />
+            <div class="download-section">
+                <h2>📦 最新版本</h2>
+                <p class="sub">清理系统缓存 · 释放磁盘空间 · 提升电脑性能</p>
+                <div class="version-badge cyan">v1.0.0</div>
+
+                <div class="file-group">
+                    <a href="CacheCleaner.exe" class="btn-download cyan" download>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                            <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                            <path d="M8 17h8v1.5H8V17z"/>
+                        </svg>
+                        下载 CacheCleaner.exe
+                    </a>
+                    <a href="cache_cleaner.cpp" class="btn-download gray" download>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                            <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                            <path d="M8 17h8v1.5H8V17z"/>
+                        </svg>
+                        源代码
+                    </a>
+                </div>
+                <div class="file-info">📦 约 1 MB · 适用于 Windows 10 / 11</div>
+            </div>
+            <hr class="divider" />
+        </div>
+
     </div>
 
     <script>
         // ================================================================
-        // 翻页（三页）
+        // 翻页（四页）
         // ================================================================
         const pages = {
             1: document.getElementById('page1'),
             2: document.getElementById('page2'),
-            3: document.getElementById('page3')
+            3: document.getElementById('page3'),
+            4: document.getElementById('page4')
         };
         const btns = {
             1: document.getElementById('page1Btn'),
             2: document.getElementById('page2Btn'),
-            3: document.getElementById('page3Btn')
+            3: document.getElementById('page3Btn'),
+            4: document.getElementById('page4Btn')
         };
 
         function clearActive() {
             Object.values(btns).forEach(b => {
-                b.classList.remove('active', 'active-purple', 'active-blue');
+                b.classList.remove('active', 'active-purple', 'active-blue', 'active-cyan');
             });
             Object.values(pages).forEach(p => p.classList.remove('active'));
         }
@@ -351,14 +412,16 @@
             pages[id].classList.add('active');
             if (id === 2) btns[id].classList.add('active-purple');
             else if (id === 3) btns[id].classList.add('active-blue');
+            else if (id === 4) btns[id].classList.add('active-cyan');
             else btns[id].classList.add('active');
         }
 
         btns[1].addEventListener('click', () => showPage(1));
         btns[2].addEventListener('click', () => showPage(2));
         btns[3].addEventListener('click', () => showPage(3));
+        btns[4].addEventListener('click', () => showPage(4));
 
-        console.log('✅ 三页版加载完成：sb3_to_exe / 光标管理工具 / ed2k提取工具');
+        console.log('✅ 四页版加载完成：sb3_to_exe / 光标管理工具 / ed2k提取工具 / Cache Cleaner');
     </script>
 
 </body>
