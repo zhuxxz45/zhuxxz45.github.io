@@ -50,6 +50,7 @@
         }
         .avatar.orange { background: linear-gradient(135deg, #f0883e, #e36209); }
         .avatar.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .avatar.blue { background: linear-gradient(135deg, #1f6feb, #388bfd); }
         h1 {
             font-size: 26px;
             font-weight: 700;
@@ -58,6 +59,7 @@
         }
         h1 .highlight { color: #f0883e; }
         h1 .purple-text { color: #8b5cf6; }
+        h1 .blue-text { color: #58a6ff; }
         .bio {
             font-size: 15px;
             color: #8b949e;
@@ -100,6 +102,7 @@
             font-weight: 600;
         }
         .version-badge.purple { color: #8b5cf6; border-color: #8b5cf6; }
+        .version-badge.blue { color: #58a6ff; border-color: #58a6ff; }
         .btn-download {
             display: inline-flex;
             align-items: center;
@@ -126,6 +129,8 @@
         }
         .btn-download.purple { background: #7c3aed; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3); }
         .btn-download.purple:hover { background: #8b5cf6; }
+        .btn-download.blue { background: #1f6feb; box-shadow: 0 2px 8px rgba(31, 111, 235, 0.3); }
+        .btn-download.blue:hover { background: #388bfd; }
         .file-info {
             margin-top: 14px;
             font-size: 13px;
@@ -158,9 +163,9 @@
             background: #21262d;
             border: 1px solid #30363d;
             color: #c9d1d9;
-            padding: 10px 28px;
+            padding: 10px 20px;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, border-color 0.2s;
@@ -168,6 +173,7 @@
         .page-nav button:hover { background: #30363d; border-color: #58a6ff; }
         .page-nav button.active { background: #238636; border-color: #238636; color: #fff; }
         .page-nav button.active-purple { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+        .page-nav button.active-blue { background: #1f6feb; border-color: #1f6feb; color: #fff; }
         .page { display: none; }
         .page.active { display: block; }
         .coming-soon {
@@ -202,7 +208,7 @@
             h1 { font-size: 22px; }
             .btn-download { width: 100%; justify-content: center; padding: 14px 20px; }
             .download-section { padding: 16px; }
-            .page-nav button { padding: 8px 16px; font-size: 13px; }
+            .page-nav button { padding: 6px 12px; font-size: 11px; }
         }
     </style>
 </head>
@@ -210,10 +216,11 @@
 
     <div class="card">
 
-        <!-- ===== 翻页导航（两页） ===== -->
+        <!-- ===== 翻页导航（三页） ===== -->
         <div class="page-nav">
             <button id="page1Btn" class="active">📦 sb3_to_exe</button>
             <button id="page2Btn">🖱️ 光标管理工具</button>
+            <button id="page3Btn">📦 ed2k提取工具</button>
         </div>
 
         <!-- ============================================================ -->
@@ -285,39 +292,73 @@
             <hr class="divider" />
         </div>
 
+        <!-- ============================================================ -->
+        <!-- 页面3：ed2k提取工具（.url，按钮不显示后缀） -->
+        <!-- ============================================================ -->
+        <div id="page3" class="page">
+            <div class="avatar blue">📦</div>
+            <h1>ed2k<span class="blue-text">提取工具</span></h1>
+            <p class="bio">🔗 提取 ed2k 链接 · 快速解析 · 高效便捷</p>
+            <div class="features">
+                <span>🔗 ed2k提取</span>
+                <span>⚡ 快速解析</span>
+                <span>🖥️ Windows 10/11</span>
+            </div>
+            <hr class="divider" />
+            <div class="download-section">
+                <h2>📦 最新版本</h2>
+                <p class="sub">提取 ed2k 链接 · 快速解析 · 高效便捷</p>
+                <div class="version-badge blue">v1.0.0</div>
+                <a href="ed2k提取工具.url" class="btn-download blue" download>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                        <path d="M8 17h8v1.5H8V17z"/>
+                    </svg>
+                    下载 ed2k提取工具
+                </a>
+                <div class="file-info">🔗 快捷方式 · 指向在线工具页面</div>
+            </div>
+            <hr class="divider" />
+        </div>
+
     </div>
 
     <script>
         // ================================================================
-        // 翻页（两页）
+        // 翻页（三页）
         // ================================================================
-        const page1 = document.getElementById('page1');
-        const page2 = document.getElementById('page2');
-        const btn1 = document.getElementById('page1Btn');
-        const btn2 = document.getElementById('page2Btn');
+        const pages = {
+            1: document.getElementById('page1'),
+            2: document.getElementById('page2'),
+            3: document.getElementById('page3')
+        };
+        const btns = {
+            1: document.getElementById('page1Btn'),
+            2: document.getElementById('page2Btn'),
+            3: document.getElementById('page3Btn')
+        };
 
         function clearActive() {
-            btn1.classList.remove('active', 'active-purple');
-            btn2.classList.remove('active', 'active-purple');
-            page1.classList.remove('active');
-            page2.classList.remove('active');
+            Object.values(btns).forEach(b => {
+                b.classList.remove('active', 'active-purple', 'active-blue');
+            });
+            Object.values(pages).forEach(p => p.classList.remove('active'));
         }
 
         function showPage(id) {
             clearActive();
-            if (id === 1) {
-                page1.classList.add('active');
-                btn1.classList.add('active');
-            } else {
-                page2.classList.add('active');
-                btn2.classList.add('active-purple');
-            }
+            pages[id].classList.add('active');
+            if (id === 2) btns[id].classList.add('active-purple');
+            else if (id === 3) btns[id].classList.add('active-blue');
+            else btns[id].classList.add('active');
         }
 
-        btn1.addEventListener('click', () => showPage(1));
-        btn2.addEventListener('click', () => showPage(2));
+        btns[1].addEventListener('click', () => showPage(1));
+        btns[2].addEventListener('click', () => showPage(2));
+        btns[3].addEventListener('click', () => showPage(3));
 
-        console.log('✅ 两页版加载完成：sb3_to_exe / 光标管理工具');
+        console.log('✅ 三页版加载完成：sb3_to_exe / 光标管理工具 / ed2k提取工具');
     </script>
 
 </body>
