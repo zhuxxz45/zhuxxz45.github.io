@@ -25,7 +25,7 @@
             border: 1px solid #30363d;
             border-radius: 24px;
             padding: 48px 40px;
-            max-width: 700px;
+            max-width: 750px;
             width: 100%;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
             text-align: center;
@@ -52,6 +52,7 @@
         .avatar.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
         .avatar.blue { background: linear-gradient(135deg, #1f6feb, #388bfd); }
         .avatar.cyan { background: linear-gradient(135deg, #1f8b8b, #2ea9a9); }
+        .avatar.green { background: linear-gradient(135deg, #2ea043, #3fb950); }
         h1 {
             font-size: 26px;
             font-weight: 700;
@@ -62,6 +63,7 @@
         h1 .purple-text { color: #8b5cf6; }
         h1 .blue-text { color: #58a6ff; }
         h1 .cyan-text { color: #3fb9b9; }
+        h1 .green-text { color: #3fb950; }
         .bio {
             font-size: 15px;
             color: #8b949e;
@@ -106,6 +108,7 @@
         .version-badge.purple { color: #8b5cf6; border-color: #8b5cf6; }
         .version-badge.blue { color: #58a6ff; border-color: #58a6ff; }
         .version-badge.cyan { color: #3fb9b9; border-color: #3fb9b9; }
+        .version-badge.green { color: #3fb950; border-color: #3fb950; }
         .btn-download {
             display: inline-flex;
             align-items: center;
@@ -136,6 +139,8 @@
         .btn-download.blue:hover { background: #388bfd; }
         .btn-download.cyan { background: #1f8b8b; box-shadow: 0 2px 8px rgba(31, 139, 139, 0.3); }
         .btn-download.cyan:hover { background: #2ea9a9; }
+        .btn-download.green { background: #2ea043; box-shadow: 0 2px 8px rgba(46, 160, 67, 0.3); }
+        .btn-download.green:hover { background: #3fb950; }
         .btn-download.gray { background: #21262d; border: 1px solid #30363d; box-shadow: none; }
         .btn-download.gray:hover { background: #30363d; }
         .file-info {
@@ -161,7 +166,7 @@
         }
         .page-nav {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 20px;
@@ -170,9 +175,9 @@
             background: #21262d;
             border: 1px solid #30363d;
             color: #c9d1d9;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 12px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, border-color 0.2s;
@@ -182,6 +187,7 @@
         .page-nav button.active-purple { background: #7c3aed; border-color: #7c3aed; color: #fff; }
         .page-nav button.active-blue { background: #1f6feb; border-color: #1f6feb; color: #fff; }
         .page-nav button.active-cyan { background: #1f8b8b; border-color: #1f8b8b; color: #fff; }
+        .page-nav button.active-green { background: #2ea043; border-color: #2ea043; color: #fff; }
         .page { display: none; }
         .page.active { display: block; }
         .coming-soon {
@@ -220,7 +226,7 @@
         .file-group .btn-download {
             justify-content: center;
         }
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
             .card { padding: 32px 20px; }
             h1 { font-size: 22px; }
             .btn-download { width: 100%; justify-content: center; padding: 14px 20px; }
@@ -233,12 +239,13 @@
 
     <div class="card">
 
-        <!-- ===== 翻页导航（四页） ===== -->
+        <!-- ===== 翻页导航（五页） ===== -->
         <div class="page-nav">
             <button id="page1Btn" class="active">📦 sb3_to_exe</button>
-            <button id="page2Btn">🖱️ 光标管理工具</button>
-            <button id="page3Btn">📦 ed2k提取工具</button>
-            <button id="page4Btn">🧹 Cache Cleaner</button>
+            <button id="page2Btn">🖱️ 光标管理</button>
+            <button id="page3Btn">📦 ed2k</button>
+            <button id="page4Btn">🧹 Cache</button>
+            <button id="page5Btn">🌐 DNS刷新</button>
         </div>
 
         <!-- ============================================================ -->
@@ -381,28 +388,60 @@
             <hr class="divider" />
         </div>
 
+        <!-- ============================================================ -->
+        <!-- 页面5：DNS刷新工具 -->
+        <!-- ============================================================ -->
+        <div id="page5" class="page">
+            <div class="avatar green">🌐</div>
+            <h1>DNS<span class="green-text">刷新工具</span></h1>
+            <p class="bio">🔄 一键刷新 DNS 缓存 · 解决网络解析问题 · 提升上网体验</p>
+            <div class="features">
+                <span>🔄 刷新DNS</span>
+                <span>⚡ 一键操作</span>
+                <span>🖥️ Windows 10/11</span>
+            </div>
+            <hr class="divider" />
+            <div class="download-section">
+                <h2>📦 最新版本</h2>
+                <p class="sub">一键刷新 DNS 缓存 · 解决网络解析问题 · 提升上网体验</p>
+                <div class="version-badge green">v1.0.0</div>
+                <a href="DNS刷新工具.exe" class="btn-download green" download>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                        <path d="M12 15l-4-4h2.5V8h3v3H16l-4 4z"/>
+                        <path d="M8 17h8v1.5H8V17z"/>
+                    </svg>
+                    下载 DNS刷新工具.exe
+                </a>
+                <div class="file-info">📦 约 1 MB · 适用于 Windows 10 / 11</div>
+            </div>
+            <hr class="divider" />
+        </div>
+
     </div>
 
     <script>
         // ================================================================
-        // 翻页（四页）
+        // 翻页（五页）
         // ================================================================
         const pages = {
             1: document.getElementById('page1'),
             2: document.getElementById('page2'),
             3: document.getElementById('page3'),
-            4: document.getElementById('page4')
+            4: document.getElementById('page4'),
+            5: document.getElementById('page5')
         };
         const btns = {
             1: document.getElementById('page1Btn'),
             2: document.getElementById('page2Btn'),
             3: document.getElementById('page3Btn'),
-            4: document.getElementById('page4Btn')
+            4: document.getElementById('page4Btn'),
+            5: document.getElementById('page5Btn')
         };
 
         function clearActive() {
             Object.values(btns).forEach(b => {
-                b.classList.remove('active', 'active-purple', 'active-blue', 'active-cyan');
+                b.classList.remove('active', 'active-purple', 'active-blue', 'active-cyan', 'active-green');
             });
             Object.values(pages).forEach(p => p.classList.remove('active'));
         }
@@ -413,6 +452,7 @@
             if (id === 2) btns[id].classList.add('active-purple');
             else if (id === 3) btns[id].classList.add('active-blue');
             else if (id === 4) btns[id].classList.add('active-cyan');
+            else if (id === 5) btns[id].classList.add('active-green');
             else btns[id].classList.add('active');
         }
 
@@ -420,8 +460,9 @@
         btns[2].addEventListener('click', () => showPage(2));
         btns[3].addEventListener('click', () => showPage(3));
         btns[4].addEventListener('click', () => showPage(4));
+        btns[5].addEventListener('click', () => showPage(5));
 
-        console.log('✅ 四页版加载完成：sb3_to_exe / 光标管理工具 / ed2k提取工具 / Cache Cleaner');
+        console.log('✅ 五页版加载完成：sb3_to_exe / 光标管理工具 / ed2k提取工具 / Cache Cleaner / DNS刷新工具');
     </script>
 
 </body>
