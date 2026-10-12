@@ -2,288 +2,170 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>碰碰球 Bumper Ball</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { height:100%; background:#000; overflow:hidden;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
-  #wrap { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
-  canvas { display:block; background:#0c0c18; box-shadow:0 0 40px rgba(0,180,255,.15); touch-action:none; }
+  body { background:#0f111a; color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:16px; }
+  h1 { font-size:1.5rem; margin:8px 0 4px;
+    background:linear-gradient(135deg,#ff6b6b,#4ecdc4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .sub { color:#a0a3b8; font-size:.9rem; margin-bottom:12px; }
+  #wrap { display:flex; justify-content:center; }
+  canvas { display:block; background:#0c0c18; border-radius:8px; box-shadow:0 0 40px rgba(0,180,255,.15); touch-action:none; max-width:100%; }
+  .dl { margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; max-width:480px; }
+  .dl a { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:10px;
+    background:#1a1d2e; border:1px solid #2d3148; color:#fff; text-decoration:none; font-size:.85rem; font-weight:600; transition:all .15s; }
+  .dl a:hover { background:#232742; border-color:#4ecdc4; transform:translateY(-2px); }
+  .dl .win { color:#4ecdc4; } .dl .deb { color:#ffc107; } .dl .apk { color:#6bcb77; }
+  .tip { margin-top:10px; color:#6e6e8c; font-size:.78rem; }
 </style>
 </head>
 <body>
+<h1>碰碰球 Bumper Ball</h1>
+<div class="sub">网页版直接玩 · 也可下载桌面/手机安装包</div>
 <div id="wrap"><canvas id="cv" width="480" height="800"></canvas></div>
+<div class="dl">
+  <a class="win" href="碰碰球.exe" download>🪟 Windows .exe</a>
+  <a class="deb" href="碰碰球_amd64.deb" download>🐧 Linux amd64 .deb</a>
+  <a class="deb" href="碰碰球_arm64.deb" download>🐧 Linux arm64 .deb</a>
+  <a class="apk" href="碰碰球.apk" download>🤖 Android .apk</a>
+</div>
+<div class="tip">←→ / A D 移动 · 鼠标/触屏拖拽 · 0 自定义速度 · +/- 调速 · R 重置</div>
 <script>
 const cv = document.getElementById('cv');
 const ctx = cv.getContext('2d');
 const W = 480, H = 800;
-
 let paddle = { x: W/2 - 90, y: H - 80, w: 180, h: 18 };
-let ball   = { x: W/2 - 11, y: H/3, size: 22, vx: 0, vy: 0 };
+let ball = { x: W/2 - 11, y: H/3, size: 22, vx: 0, vy: 0 };
 let score = 0, life = 3, gameOver = false, win = false;
 let speedValue = 220;
 const PADDLE_SPEED = 600;
-
 let bricks = [];
-const BRICK_ROWS = 5, BRICK_COLS = 8;
-const BRICK_PAD = 4, BRICK_TOP = 70, BRICK_H = 22;
+const BRICK_ROWS = 5, BRICK_COLS = 8, BRICK_PAD = 4, BRICK_TOP = 70, BRICK_H = 22;
 const BRICK_COLORS = ['#ff5050','#ff9f43','#ffd93d','#6bcb77','#4ecdc4'];
 const BRICK_SCORES = [50,40,30,20,10];
-
 function buildBricks(){
   bricks = [];
-  const totalPad = BRICK_PAD * (BRICK_COLS + 1);
-  const bw = (W - totalPad) / BRICK_COLS;
-  for (let r = 0; r < BRICK_ROWS; r++){
-    for (let c = 0; c < BRICK_COLS; c++){
-      bricks.push({
-        x: BRICK_PAD + c*(bw+BRICK_PAD),
-        y: BRICK_TOP + r*(BRICK_H+BRICK_PAD),
-        w: bw, h: BRICK_H,
-        color: BRICK_COLORS[r],
-        score: BRICK_SCORES[r],
-        alive: true
-      });
-    }
-  }
+  const totalPad = BRICK_PAD*(BRICK_COLS+1);
+  const bw = (W-totalPad)/BRICK_COLS;
+  for(let r=0;r<BRICK_ROWS;r++)for(let c=0;c<BRICK_COLS;c++)
+    bricks.push({x:BRICK_PAD+c*(bw+BRICK_PAD),y:BRICK_TOP+r*(BRICK_H+BRICK_PAD),w:bw,h:BRICK_H,color:BRICK_COLORS[r],score:BRICK_SCORES[r],alive:true});
 }
-
-let keyLeft=false, keyRight=false;
-let mouseHold=false, mouseX=0;
-let inputMode=false, inputBuf='';
-
+let keyLeft=false,keyRight=false,mouseHold=false,mouseX=0,inputMode=false,inputBuf='';
 function applySpeed(){
-  speedValue = Math.max(1, Math.min(999999, speedValue));
-  const base = speedValue;
-  const sp = Math.hypot(ball.vx, ball.vy);
-  if (sp > 0.01){
-    const k = base/sp;
-    ball.vx *= k; ball.vy *= k;
-  } else {
-    ball.vx = base * (Math.random()<.5?-1:1);
-    ball.vy = base * 1.18;
-  }
+  speedValue=Math.max(1,Math.min(999999,speedValue));
+  const base=speedValue,sp=Math.hypot(ball.vx,ball.vy);
+  if(sp>0.01){const k=base/sp;ball.vx*=k;ball.vy*=k;}
+  else{ball.vx=base*(Math.random()<.5?-1:1);ball.vy=base*1.18;}
 }
-
 function resetBall(){
-  ball.x = W/2 - ball.size/2 + (Math.random()*60-30);
-  ball.y = H/3;
-  ball.vx = speedValue * (Math.random()<.5?-1:1);
-  ball.vy = speedValue * 1.18;
+  ball.x=W/2-ball.size/2+(Math.random()*60-30);ball.y=H/3;
+  ball.vx=speedValue*(Math.random()<.5?-1:1);ball.vy=speedValue*1.18;
 }
-
-function resetGame(){
-  score = 0; life = 3; gameOver = false; win = false;
-  paddle.x = W/2 - paddle.w/2;
-  buildBricks();
-  resetBall();
-}
-
-function clampStep(v, dt){
-  const max = 200, step = v*dt;
-  return Math.max(-max, Math.min(max, step));
-}
-
-let last = performance.now();
+function resetGame(){score=0;life=3;gameOver=false;win=false;paddle.x=W/2-paddle.w/2;buildBricks();resetBall();}
+function clampStep(v,dt){const max=200,step=v*dt;return Math.max(-max,Math.min(max,step));}
+let last=performance.now();
 function loop(now){
-  let dt = (now-last)/1000; last = now;
-  if (dt > 0.05) dt = 0.05;
-  if (!inputMode && !gameOver && !win) update(dt);
-  draw();
-  requestAnimationFrame(loop);
+  let dt=(now-last)/1000;last=now;
+  if(dt>0.05)dt=0.05;
+  if(!inputMode&&!gameOver&&!win)update(dt);
+  draw();requestAnimationFrame(loop);
 }
-
 function update(dt){
-  if (mouseHold){
-    paddle.x = mouseX - paddle.w/2;
-  } else {
-    if (keyLeft)  paddle.x -= PADDLE_SPEED*dt;
-    if (keyRight) paddle.x += PADDLE_SPEED*dt;
+  if(mouseHold)paddle.x=mouseX-paddle.w/2;
+  else{if(keyLeft)paddle.x-=PADDLE_SPEED*dt;if(keyRight)paddle.x+=PADDLE_SPEED*dt;}
+  paddle.x=Math.max(0,Math.min(W-paddle.w,paddle.x));
+  ball.x+=clampStep(ball.vx,dt);ball.y+=clampStep(ball.vy,dt);
+  if(ball.x<=0){ball.x=0;ball.vx=-ball.vx;}
+  if(ball.x+ball.size>=W){ball.x=W-ball.size;ball.vx=-ball.vx;}
+  if(ball.y<=0){ball.y=0;ball.vy=-ball.vy;}
+  if(ball.y+ball.size>=paddle.y&&ball.y+ball.size<=paddle.y+paddle.h+20&&ball.x+ball.size>=paddle.x&&ball.x<=paddle.x+paddle.w&&ball.vy>0){
+    ball.y=paddle.y-ball.size;ball.vy=-Math.abs(ball.vy);
+    const hit=(ball.x+ball.size/2)-(paddle.x+paddle.w/2);ball.vx=hit*4;
+    const sp=Math.hypot(ball.vx,ball.vy);
+    if(sp<speedValue){const k=speedValue/(sp+0.0001);ball.vx*=k;ball.vy*=k;}
+    score+=10;
   }
-  paddle.x = Math.max(0, Math.min(W-paddle.w, paddle.x));
-
-  ball.x += clampStep(ball.vx, dt);
-  ball.y += clampStep(ball.vy, dt);
-
-  if (ball.x <= 0){ ball.x = 0; ball.vx = -ball.vx; }
-  if (ball.x + ball.size >= W){ ball.x = W - ball.size; ball.vx = -ball.vx; }
-  if (ball.y <= 0){ ball.y = 0; ball.vy = -ball.vy; }
-
-  if (ball.y+ball.size >= paddle.y && ball.y+ball.size <= paddle.y+paddle.h+20
-      && ball.x+ball.size >= paddle.x && ball.x <= paddle.x+paddle.w && ball.vy > 0){
-    ball.y = paddle.y - ball.size;
-    ball.vy = -Math.abs(ball.vy);
-    const hit = (ball.x+ball.size/2) - (paddle.x+paddle.w/2);
-    ball.vx = hit * 4;
-    const sp = Math.hypot(ball.vx, ball.vy);
-    if (sp < speedValue){
-      const k = speedValue/(sp+0.0001);
-      ball.vx *= k; ball.vy *= k;
-    }
-    score += 10;
-  }
-
-  for (const b of bricks){
-    if (!b.alive) continue;
-    if (ball.x+ball.size > b.x && ball.x < b.x+b.w
-        && ball.y+ball.size > b.y && ball.y < b.y+b.h){
-      b.alive = false;
-      score += b.score;
-      const overlapX = Math.min(ball.x+ball.size - b.x, b.x+b.w - ball.x);
-      const overlapY = Math.min(ball.y+ball.size - b.y, b.y+b.h - ball.y);
-      if (overlapX < overlapY) ball.vx = -ball.vx;
-      else ball.vy = -ball.vy;
+  for(const b of bricks){
+    if(!b.alive)continue;
+    if(ball.x+ball.size>b.x&&ball.x<b.x+b.w&&ball.y+ball.size>b.y&&ball.y<b.y+b.h){
+      b.alive=false;score+=b.score;
+      const ox=Math.min(ball.x+ball.size-b.x,b.x+b.w-ball.x);
+      const oy=Math.min(ball.y+ball.size-b.y,b.y+b.h-ball.y);
+      if(ox<oy)ball.vx=-ball.vx;else ball.vy=-ball.vy;
       break;
     }
   }
-  if (bricks.every(b => !b.alive)) win = true;
-
-  if (ball.y > H){
-    life--;
-    if (life <= 0) gameOver = true;
-    else resetBall();
-  }
+  if(bricks.every(b=>!b.alive))win=true;
+  if(ball.y>H){life--;if(life<=0)gameOver=true;else resetBall();}
 }
-
 function draw(){
-  ctx.fillStyle = '#000';
-  ctx.fillRect(0,0,W,H);
-  ctx.fillStyle = '#0c0c18';
-  ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle = '#282846';
-  ctx.strokeRect(0.5,0.5,W-1,H-1);
-
-  for (const b of bricks){
-    if (!b.alive) continue;
-    ctx.fillStyle = b.color;
-    ctx.fillRect(b.x, b.y, b.w, b.h);
+  ctx.fillStyle='#0c0c18';ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#282846';ctx.strokeRect(0.5,0.5,W-1,H-1);
+  for(const b of bricks){if(!b.alive)continue;ctx.fillStyle=b.color;ctx.fillRect(b.x,b.y,b.w,b.h);}
+  ctx.fillStyle='#00b4ff';ctx.fillRect(paddle.x,paddle.y,paddle.w,paddle.h);
+  ctx.fillStyle='#ff5050';ctx.beginPath();ctx.arc(ball.x+ball.size/2,ball.y+ball.size/2,ball.size/2,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#c8c8dc';ctx.font='14px monospace';ctx.textBaseline='top';
+  ctx.fillText(`Score: ${score}   Life: ${life}`,10,10);
+  ctx.fillStyle='#78dca0';ctx.fillText(`Speed: ${speedValue}`,W-180,10);
+  ctx.fillStyle='#6e6e8c';ctx.font='12px monospace';ctx.fillText('0: speed  +/-: ±10  R: reset',10,H-22);
+  if(inputMode){
+    ctx.fillStyle='rgba(20,20,40,0.95)';ctx.fillRect(60,H/2-40,360,90);
+    ctx.strokeStyle='#78dca0';ctx.lineWidth=2;ctx.strokeRect(60,H/2-40,360,90);ctx.lineWidth=1;
+    ctx.fillStyle='#c8c8dc';ctx.font='13px monospace';ctx.fillText('Enter speed (1-999999), ENTER=ok ESC=cancel',68,H/2-32);
+    ctx.fillStyle='#78dca0';ctx.font='16px monospace';ctx.fillText('> '+inputBuf+'_',72,H/2-2);
   }
-
-  ctx.fillStyle = '#00b4ff';
-  ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
-
-  ctx.fillStyle = '#ff5050';
-  ctx.beginPath();
-  ctx.arc(ball.x+ball.size/2, ball.y+ball.size/2, ball.size/2, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.fillStyle = '#c8c8dc';
-  ctx.font = '14px monospace';
-  ctx.textBaseline = 'top';
-  ctx.fillText(`Score: ${score}   Life: ${life}`, 10, 10);
-  ctx.fillStyle = '#78dca0';
-  ctx.fillText(`Speed: ${speedValue}`, W-180, 10);
-
-  ctx.fillStyle = '#6e6e8c';
-  ctx.font = '12px monospace';
-  ctx.fillText('0: speed   +/-: +-10   R: reset   ←→/AD/鼠标:移动', 10, H-22);
-
-  if (inputMode){
-    ctx.fillStyle = 'rgba(20,20,40,0.95)';
-    ctx.fillRect(60, H/2-40, 360, 90);
-    ctx.strokeStyle = '#78dca0';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(60, H/2-40, 360, 90);
-    ctx.lineWidth = 1;
-    ctx.fillStyle = '#c8c8dc';
-    ctx.font = '13px monospace';
-    ctx.fillText('Enter speed (1-999999), ENTER=ok ESC=cancel', 68, H/2-32);
-    ctx.fillStyle = '#78dca0';
-    ctx.font = '16px monospace';
-    ctx.fillText('> ' + inputBuf + '_', 72, H/2-2);
+  if(gameOver){
+    ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(0,H/2-60,W,120);
+    ctx.fillStyle='#ff5050';ctx.font='bold 20px sans-serif';ctx.textAlign='center';
+    ctx.fillText('GAME OVER',W/2,H/2-40);
+    ctx.fillStyle='#c8c8dc';ctx.font='14px sans-serif';
+    ctx.fillText(`Score: ${score}`,W/2,H/2-10);
+    ctx.fillText('SPACE / Click to Restart',W/2,H/2+15);ctx.textAlign='left';
   }
-
-  if (gameOver){
-    ctx.fillStyle = '#ff5050';
-    ctx.font = 'bold 20px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('GAME OVER', W/2, H/2-20);
-    ctx.fillStyle = '#c8c8dc';
-    ctx.font = '14px sans-serif';
-    ctx.fillText(`Score: ${score}`, W/2, H/2+10);
-    ctx.fillText('SPACE / Click to Restart', W/2, H/2+35);
-    ctx.textAlign = 'left';
-  }
-  if (win){
-    ctx.fillStyle = '#6bcb77';
-    ctx.font = 'bold 22px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('YOU WIN!', W/2, H/2-20);
-    ctx.fillStyle = '#c8c8dc';
-    ctx.font = '14px sans-serif';
-    ctx.fillText(`Final Score: ${score}`, W/2, H/2+10);
-    ctx.fillText('SPACE / Click to Play Again', W/2, H/2+35);
-    ctx.textAlign = 'left';
+  if(win){
+    ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(0,H/2-60,W,120);
+    ctx.fillStyle='#6bcb77';ctx.font='bold 22px sans-serif';ctx.textAlign='center';
+    ctx.fillText('YOU WIN!',W/2,H/2-40);
+    ctx.fillStyle='#c8c8dc';ctx.font='14px sans-serif';
+    ctx.fillText(`Final Score: ${score}`,W/2,H/2-10);
+    ctx.fillText('SPACE / Click to Play Again',W/2,H/2+15);ctx.textAlign='left';
   }
 }
-
-window.addEventListener('keydown', e => {
-  if (inputMode){
-    if (e.key === 'Escape'){ inputMode=false; inputBuf=''; }
-    else if (e.key === 'Backspace'){ inputBuf = inputBuf.slice(0,-1); }
-    else if (e.key === 'Enter'){
-      if (inputBuf){
-        let v = parseInt(inputBuf,10);
-        speedValue = Math.max(1, Math.min(999999, isNaN(v)?1:v));
-        applySpeed();
-      }
-      inputMode = false; inputBuf='';
-    } else if (/^[0-9]$/.test(e.key) && inputBuf.length < 6){
-      inputBuf += e.key;
-    }
-    e.preventDefault();
-    return;
+window.addEventListener('keydown',e=>{
+  if(inputMode){
+    if(e.key==='Escape'){inputMode=false;inputBuf='';}
+    else if(e.key==='Backspace'){inputBuf=inputBuf.slice(0,-1);}
+    else if(e.key==='Enter'){
+      if(inputBuf){let v=parseInt(inputBuf,10);speedValue=Math.max(1,Math.min(999999,isNaN(v)?1:v));applySpeed();}
+      inputMode=false;inputBuf='';
+    }else if(/^[0-9]$/.test(e.key)&&inputBuf.length<6){inputBuf+=e.key;}
+    e.preventDefault();return;
   }
-  if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') keyLeft = true;
-  if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keyRight = true;
-  if (e.key === ' ' && (gameOver || win)){ resetGame(); e.preventDefault(); }
-  if (e.key === '0'){ inputMode = true; inputBuf=''; }
-  if (e.key === '+' || e.key === '='){ speedValue = Math.min(999999, speedValue+10); applySpeed(); }
-  if (e.key === '-' || e.key === '_'){ speedValue = Math.max(1, speedValue-10); applySpeed(); }
-  if (e.key === 'r' || e.key === 'R') resetGame();
+  if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A')keyLeft=true;
+  if(e.key==='ArrowRight'||e.key==='d'||e.key==='D')keyRight=true;
+  if(e.key===' '&&(gameOver||win)){resetGame();e.preventDefault();}
+  if(e.key==='0'){inputMode=true;inputBuf='';}
+  if(e.key==='+'||e.key==='='){speedValue=Math.min(999999,speedValue+10);applySpeed();}
+  if(e.key==='-'||e.key==='_'){speedValue=Math.max(1,speedValue-10);applySpeed();}
+  if(e.key==='r'||e.key==='R')resetGame();
 });
-window.addEventListener('keyup', e => {
-  if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') keyLeft = false;
-  if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keyRight = false;
+window.addEventListener('keyup',e=>{
+  if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A')keyLeft=false;
+  if(e.key==='ArrowRight'||e.key==='d'||e.key==='D')keyRight=false;
 });
-
-function canvasX(clientX){
-  const r = cv.getBoundingClientRect();
-  return (clientX - r.left) * (W / r.width);
-}
-cv.addEventListener('mousedown', e => {
-  if (inputMode) return;
-  mouseHold = true;
-  mouseX = canvasX(e.clientX);
-  if (gameOver || win) resetGame();
-});
-window.addEventListener('mouseup', () => mouseHold = false);
-window.addEventListener('mousemove', e => { if (mouseHold) mouseX = canvasX(e.clientX); });
-
-cv.addEventListener('touchstart', e => {
-  if (inputMode) return;
-  mouseHold = true;
-  mouseX = canvasX(e.touches[0].clientX);
-  if (gameOver || win) resetGame();
-  e.preventDefault();
-}, {passive:false});
-cv.addEventListener('touchmove', e => {
-  mouseX = canvasX(e.touches[0].clientX);
-  e.preventDefault();
-}, {passive:false});
-cv.addEventListener('touchend', () => mouseHold = false);
-
-function resize(){
-  const scale = Math.min(window.innerWidth/W, window.innerHeight/H);
-  cv.style.width  = (W*scale)+'px';
-  cv.style.height = (H*scale)+'px';
-}
-window.addEventListener('resize', resize);
-resize();
-
-resetGame();
-requestAnimationFrame(loop);
+function canvasX(cx){const r=cv.getBoundingClientRect();return(cx-r.left)*(W/r.width);}
+cv.addEventListener('mousedown',e=>{if(inputMode)return;mouseHold=true;mouseX=canvasX(e.clientX);if(gameOver||win)resetGame();});
+window.addEventListener('mouseup',()=>mouseHold=false);
+window.addEventListener('mousemove',e=>{if(mouseHold)mouseX=canvasX(e.clientX);});
+cv.addEventListener('touchstart',e=>{if(inputMode)return;mouseHold=true;mouseX=canvasX(e.touches[0].clientX);if(gameOver||win)resetGame();e.preventDefault();},{passive:false});
+cv.addEventListener('touchmove',e=>{mouseX=canvasX(e.touches[0].clientX);e.preventDefault();},{passive:false});
+cv.addEventListener('touchend',()=>mouseHold=false);
+function resize(){const maxH=window.innerHeight-180;const s=Math.min(window.innerWidth/W,maxH/H,1.2);cv.style.width=(W*s)+'px';cv.style.height=(H*s)+'px';}
+window.addEventListener('resize',resize);resize();
+resetGame();requestAnimationFrame(loop);
 </script>
 </body>
 </html>
